@@ -73,7 +73,7 @@ export const data = [
             {
                 "school": "南京农业大学",
                 "num": 1,
-                "id": [1],
+                "id": [2485036908],
             },
             {
                 "school": "江苏大学",
