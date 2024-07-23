@@ -12,12 +12,46 @@ const store = reactive({
 
 createApp({ store }).mount()
 
+let hue = 0;
+const updateHue = () => {
+    hue = (hue + 0.1) % 360; // 每次增加1，范围保持在0-359之间
+    document.documentElement.style.setProperty('--theme-hue', hue);
+    requestAnimationFrame(updateHue); // 请求下一帧
+};
+requestAnimationFrame(updateHue); // 启动动画
+
 const map = document.getElementById('map');
 
 const lands = document.querySelectorAll('.land');
 const infoAreaTitleText = document.getElementById('info-area-title-text');
 const backButton = document.getElementById('back-button');
 const infoAreaTitle = document.getElementById('info-area-title');
+const schoolWrapper = document.getElementById('school-wrapper');
+
+const fadeLeftOutKF = [
+    {
+        transform: "translateX(-40px)",
+        opacity: 0,
+    },
+];
+
+const fadeRightInKF = [
+    {
+        transform: "translateX(40px)",
+        opacity: 0,
+    },
+    {
+        transform: "translateX(0)",
+        opacity: 1,
+    },
+];
+
+const fadeTiming = {
+    duration: 250,
+    iterations: 1,
+    fill: "both",
+    easing: "ease-out",
+};
 
 lands.forEach(land => {
     console.log(land.getAttribute('title'));
@@ -41,7 +75,7 @@ lands.forEach(land => {
     let num = data.find(province => province.province === land.getAttribute('title'))?.num;
     if (num != undefined) {
         land.setAttribute('data-num', num);
-        land.style.fill = `hsl(72, ${num * 20}%, 70%)`;
+        land.style.fill = `hsl(var(--theme-hue), ${num * 20}%, 70%)`;
     }
 })
 
@@ -81,7 +115,13 @@ function provinceClick(e) {
     map.style.transform = `rotateX(45deg) rotateZ(12deg) scale(${ratio})`;
     infoAreaTitleText.innerText = target.getAttribute('title');
 
-    store.setSelection(data.find(province => province.province === target.getAttribute('title')));
+
+
+    var animation = schoolWrapper.animate(fadeLeftOutKF, fadeTiming);
+    animation.onfinish = () => {
+        store.setSelection(data.find(province => province.province === target.getAttribute('title')));
+        schoolWrapper.animate(fadeRightInKF, fadeTiming);
+    };
 }
 
 function back() {

@@ -2,6 +2,8 @@
     font-style: normal;
     font-family: 'Noto Serif SC', serif;
     font-optical-sizing: auto;
+
+    --theme-hue: 84;
 }
 
 body {
@@ -28,9 +30,9 @@ h2 {
 }
 
 .land:hover {
-    -webkit-filter: drop-shadow(4px 4px 6px rgba(153, 194, 92, 0.3));
-    filter: drop-shadow(4px 4px 6px rgba(153, 194, 92, 0.3));
-    fill: #d1e57f;
+    -webkit-filter: drop-shadow(4px 4px 6px hsla(84, 46%, 56%, 0.3));
+    filter: drop-shadow(4px 4px 6px hsla(84, 46%, 56%, 0.3));
+    fill: hsl(var(--theme-hue), 67%, 70%);
     transform: translateZ(10px);
 }
 
@@ -57,7 +59,7 @@ h2 {
 .selected-hold:hover {
     -webkit-filter: drop-shadow(8px 8px 12px rgba(153, 194, 92, 0.3)) brightness(105%);
     filter: drop-shadow(8px 8px 12px rgba(153, 194, 92, 0.3)) brightness(105%);
-    fill: rgb(209, 229, 127);
+    fill: hsl(var(--theme-hue), 66%, 70%);
     transform: translateZ(100px) translateY(-12px);
     position: relative;
     z-index: 99999;
@@ -99,7 +101,7 @@ h2 {
     margin: 8px;
     padding: 4px 8px;
     border-radius: 8px;
-    box-shadow: 3px 3px 6px 0 rgba(0, 0, 0, 0.3);
+    box-shadow: 3px 3px 6px 0 hsla(0, 0%, 0%, 0.3);
 }
 
 .avatar {
@@ -107,7 +109,7 @@ h2 {
     border-radius: 9999px;
     overflow: hidden;
     border: 2px solid white;
-    box-shadow: 1px 1px 4px 0 rgba(0, 0, 0, 0.545);
+    box-shadow: 1px 1px 4px 0 hsla(0, 0%, 0%, 0.545);
 }
 
 .avatar:not(:nth-child(1)) {
@@ -141,9 +143,9 @@ h2 {
 }
 
 #back-button:hover {
-    background-color: rgba(0, 0, 0, 0.1);
+    background-color: hsla(0, 0%, 0%, 0.1);
     cursor: pointer;
-    box-shadow: 1px 1px 2px 0 rgba(0, 0, 0, 0.2);
+    box-shadow: 1px 1px 2px 0 hsla(0, 0%, 0%, 0.2);
 }
 
 #info-area-wrapper {
@@ -151,7 +153,8 @@ h2 {
     position: relative;
     display: flex;
     z-index: 999;
-    overflow: visible auto;
+    overflow-x: clip;
+    overflow-y: auto;
 }
 
 #info-area-content-wrapper {
@@ -177,6 +180,7 @@ h2 {
 .school-data-wrapper {
     display: flex;
     flex-direction: column;
+    overflow-x: clip;
 }
 
 .school-data-wrapper:not(:first-child) {
@@ -209,6 +213,7 @@ h2 {
     #info-area-gradient-bg {
         mask: linear-gradient(to right, rgba(255, 255, 255, 0), rgba(255, 255, 255, 1) 14%, rgba(255, 255, 255, 1));
         left: -64px;
+        overflow-x: visible;
     }
 
     #map {
