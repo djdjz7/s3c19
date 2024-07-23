@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>省锡中 24 届 19 班蹭饭地图</title>
     <script src="./main.js" type="module" defer></script>
-    <link rel="stylesheet" href="./style.min.css">
+    <link rel="stylesheet" href="./style.css">
     <!-- <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> -->
     <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@200..900&display=swap" rel="stylesheet">
@@ -20,6 +20,10 @@
                 break;
             case 1436781044:
                 document.body.style.backgroundImage = "url('./assets/csh.jpg')"
+                break;
+            case 2954055473:
+                document.body.style.backgroundImage = "";
+                break;
         }
     }
 </script>
@@ -130,6 +134,7 @@
                             <div class="avatar-wrapper">
                                 <img v-for="(id,index) in schoolData.id" class="avatar"
                                     :src="`https://q1.qlogo.cn/g?b=qq&nk=${id}&s=100`"
+                                    :srcset="`https://q1.qlogo.cn/g?b=qq&nk=${id}&s=640 4x`"
                                     :title="id === 6741038 ? '这个是假的':''" @dblclick="avatarDblClick(id)">
                             </div>
                         </div>
