@@ -82,8 +82,9 @@ lands.forEach((land) => {
 
 provinceListItems.forEach((item) => {
   item.addEventListener("click", function () {
-    var target = [...lands].find(
-      (land) => land.getAttribute("title") === item.textContent.trim()
+    let provinceName = item.querySelector("h2").textContent.trim();
+    let target = [...lands].find(
+      (land) => land.getAttribute("title") === provinceName
     );
 
     console.log(target);

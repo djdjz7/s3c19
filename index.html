@@ -319,6 +319,9 @@
                 class="province-list-item"
               >
                 <h2 class="province-list-item-text">{{province.province}}</h2>
+                <div
+                  v-for="i in Array.from({length: province.num}, (_,i)=>i)"
+                >·</div>
               </div>
             </div>
           </div>
