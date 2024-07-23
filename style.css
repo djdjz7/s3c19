@@ -118,7 +118,7 @@ h2 {
     transform-origin: center;
     perspective: 1000px;
     padding: 64px;
-    flex-shrink: 0;
+    flex-shrink: 0.5;
     transition: all 1s ease;
 }
 
@@ -151,7 +151,7 @@ h2 {
     position: relative;
     display: flex;
     z-index: 999;
-    overflow: auto;
+    overflow: visible auto;
 }
 
 #info-area-content-wrapper {
