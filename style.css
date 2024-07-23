@@ -1,9 +1,11 @@
 :root {
+  --theme-hue: 84;
+  --foreground-color: black;
+  color: var(--foreground-color);
+
   font-style: normal;
   font-family: "Noto Serif SC", serif;
   font-optical-sizing: auto;
-
-  --theme-hue: 84;
 }
 
 body {
@@ -288,7 +290,7 @@ h2 {
 #menu-toggle-lower {
   position: relative;
   width: 100%;
-  background-color: black;
+  background-color: var(--foreground-color);
   height: 1px;
   transition: all 250ms;
   top: 0;
@@ -324,4 +326,11 @@ h2 {
 
 .conflicting-background {
   transition: all 250ms;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    background-color: black;
+    --foreground-color: white;
+  }
 }
