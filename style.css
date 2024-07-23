@@ -117,7 +117,7 @@ h2 {
 #map {
     transform-origin: center;
     perspective: 1000px;
-    padding: 64px;
+    padding: 3em;
     flex-shrink: 0.5;
     transition: all 1s ease;
 }
