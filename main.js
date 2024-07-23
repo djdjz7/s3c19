@@ -15,11 +15,12 @@ createApp({ store }).mount()
 
 let hue = 0;
 const updateHue = () => {
-    hue = (hue + 0.1) % 360; // 每次增加1，范围保持在0-359之间
+    hue = (hue + 0.1) % 360;
     document.documentElement.style.setProperty('--theme-hue', hue);
-    requestAnimationFrame(updateHue); // 请求下一帧
+    requestAnimationFrame(updateHue);
 };
-requestAnimationFrame(updateHue); // 启动动画
+
+requestAnimationFrame(updateHue);
 
 var isMenuOpen = false;
 
@@ -120,14 +121,14 @@ function provinceClick(e) {
 
     var target = e.target;
     map.appendChild(target);
-
+    target.classList.add('selected-hold');
+    
     lands.forEach(land => {
         if (land !== target) {
             land.classList.remove('selected-hold');
             land.classList.add('unselected-hold');
         }
     });
-    target.classList.add('selected-hold');
 
     const targetRect = target.getBoundingClientRect();
     const mapRect = map.getBoundingClientRect();
