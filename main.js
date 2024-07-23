@@ -5,6 +5,7 @@ const store = reactive({
     data,
     selectedProvince: { details: [] },
     isInSelection: false,
+    isInitial: true,
     setSelection(province) {
         this.selectedProvince = province;
     }
@@ -20,13 +21,22 @@ const updateHue = () => {
 };
 requestAnimationFrame(updateHue); // 启动动画
 
+var isMenuOpen = false;
+
 const map = document.getElementById('map');
 
 const lands = document.querySelectorAll('.land');
 const infoAreaTitleText = document.getElementById('info-area-title-text');
 const backButton = document.getElementById('back-button');
+const menuToggle = document.getElementById('menu-toggle');
 const infoAreaTitle = document.getElementById('info-area-title');
 const schoolWrapper = document.getElementById('school-wrapper');
+const provinceListItems = document.querySelectorAll('.province-list-item');
+const provinceList = document.getElementById('available-province-list');
+
+const menuToggleUpper = document.getElementById('menu-toggle-upper');
+const menuToggleMiddle = document.getElementById('menu-toggle-middle');
+const menuToggleLower = document.getElementById('menu-toggle-lower');
 
 const fadeLeftOutKF = [
     {
@@ -54,7 +64,6 @@ const fadeTiming = {
 };
 
 lands.forEach(land => {
-    console.log(land.getAttribute('title'));
     land.addEventListener('mouseover', function () {
         lands.forEach(otherLand => {
             if (otherLand !== land) {
@@ -70,6 +79,18 @@ lands.forEach(land => {
     });
 });
 
+provinceListItems.forEach(item => {
+    item.addEventListener('click', function () {
+        var target = [...lands].find(land => land.getAttribute('title') === item.textContent.trim());
+
+        console.log(target);
+
+        provinceClick({
+            target,
+        });
+    })
+});
+
 lands.forEach(land => {
     land.addEventListener("click", provinceClick);
     let num = data.find(province => province.province === land.getAttribute('title'))?.num;
@@ -80,14 +101,21 @@ lands.forEach(land => {
 })
 
 backButton.addEventListener("click", back);
+menuToggle.addEventListener("click", toggleMenu);
 
 function provinceClick(e) {
+    store.isInitial = false;
+
+    closeMenu();
+
     if (store.isInSelection)
         return;
 
     store.isInSelection = true;
 
     backButton.style.opacity = 1;
+    menuToggle.style.opacity = 0;
+
     infoAreaTitle.style.transform = "";
 
     var target = e.target;
@@ -127,11 +155,64 @@ function provinceClick(e) {
 function back() {
     store.isInSelection = false;
     backButton.style.opacity = 0;
+    menuToggle.style.opacity = 1;
     infoAreaTitle.style.transform = "translateX(-40px)";
     map.style.transform = "";
     map.style.translate = "";
     lands.forEach(land => {
         land.classList.remove('selected-hold');
         land.classList.remove('unselected-hold');
+    });
+}
+
+function toggleMenu() {
+
+    if (!isMenuOpen) {
+        isMenuOpen = true;
+
+        menuToggleUpper.style.top = "5px";
+        menuToggleUpper.style.transform = "rotate(45deg)";
+        menuToggleMiddle.style.opacity = "0";
+        menuToggleLower.style.top = "-5px";
+        menuToggleLower.style.transform = "rotate(-45deg)";
+
+        let conflictingBackgrounds = document.querySelectorAll('.conflicting-background');
+
+        conflictingBackgrounds.forEach(background => {
+
+            console.log(background);
+            background.style.opacity = 0;
+        });
+
+        provinceList.style.height = "100%";
+        provinceListItems.forEach(item => {
+            item.style.opacity = 1;
+            item.style.transform = 'translateY(-40px)'
+        });
+    }
+    else {
+        closeMenu();
+    }
+}
+
+function closeMenu() {
+    isMenuOpen = false;
+
+    menuToggleUpper.style.top = "";
+    menuToggleUpper.style.transform = "";
+    menuToggleMiddle.style.opacity = "";
+    menuToggleLower.style.top = "";
+    menuToggleLower.style.transform = "";
+
+    let conflictingBackgrounds = document.querySelectorAll('.conflicting-background');
+
+    conflictingBackgrounds.forEach(background => {
+        background.style.opacity = 1;
+    });
+
+    provinceList.style.height = "0%";
+    provinceListItems.forEach(item => {
+        item.style.opacity = 0;
+        item.style.transform = '';
     });
 }

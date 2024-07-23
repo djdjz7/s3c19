@@ -104,18 +104,6 @@
             </g>
         </svg>
         <div id="data-area" v-scope>
-            <div v-if="false" v-for="provinceData in data" class="province-data-wrapper">
-                <span class="province-title">{{ provinceData.province }}</span>
-                <span class="province-num">{{ provinceData.num }}</span>
-                <div v-for="schoolData in provinceData.details" class="school-data-wrapper">
-                    <span class="school-title">{{ schoolData.school }}</span>
-                    <img v-for="(id,index) in schoolData.id" class="avatar"
-                        :src="`https://q1.qlogo.cn/g?b=qq&nk=${id}&s=100`" :title="id === 6741038 ? '这个是假的':''"
-                        @dblclick="avatarDblClick(id)">
-                </div>
-            </div>
-
-
         </div>
         <div id="info-area-wrapper" v-scope>
             <div id="info-area-gradient-bg"></div>
@@ -126,9 +114,14 @@
                         <img src="./assets/chevron-left.svg" width="20px">
                     </span>
                     <h2 id="info-area-title-text">省锡中 24 届 19 班蹭饭地图</h2>
+                    <div id="menu-toggle">
+                        <div id="menu-toggle-upper"></div>
+                        <div id="menu-toggle-middle"></div>
+                        <div id="menu-toggle-lower"></div>
+                    </div>
                 </div>
                 <div id="school-wrapper">
-                    <div v-if="store.selectedProvince">
+                    <div v-if="store.selectedProvince && !store.isInitial" class="conflicting-background">
                         <div v-for="schoolData in store.selectedProvince.details" class="school-data-wrapper">
                             <span class="school-title">{{ schoolData.school }}</span>
                             <div class="avatar-wrapper">
@@ -140,15 +133,30 @@
                         </div>
                         <div style="height: 24px;"></div>
                     </div>
-                    <div v-else>
+                    <div v-else-if="!store.isInitial" class="conflicting-background">
                         <span>我不明白，但是好像没人去这里。</span><br>
                         <span class="line-through">也许这里的饭不好吃？</span>
+                    </div>
+                    <div v-else class="conflicting-background">
+                        <span>语文：达!达达达达达达达达达达达达达达达达!</span><br>
+                        <span>数学：JK</span><br>
+                        <span>英语：无锡市教学小能手、Lily</span><br>
+                        <span>物理：欸，你看看我是谁呢？啊？再看看呢？欸！</span><br>
+                        <span>化学：嗯，对的！是小美</span><br>
+                        <span>生物：玉莲、可人、钱</span><br>
+                        <span>地理：流枫、“死老太婆”</span>
+                    </div>
+
+                    <div id="available-province-list">
+                        <div v-for="(province,index) in store.data" :style="`--item-order-num: ${index}`"
+                            class="province-list-item">
+                            <h2 class="province-list-item-text">{{province.province}}</span>
+                        </div>
                     </div>
                 </div>
 
             </div>
         </div>
-
 </body>
 
 </html>
