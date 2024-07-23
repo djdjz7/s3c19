@@ -106,7 +106,7 @@ menuToggle.addEventListener("click", toggleMenu);
 function provinceClick(e) {
     store.isInitial = false;
 
-    closeMenu();
+    closeMenu(true);
 
     if (store.isInSelection)
         return;
@@ -147,6 +147,12 @@ function provinceClick(e) {
 
     var animation = schoolWrapper.animate(fadeLeftOutKF, fadeTiming);
     animation.onfinish = () => {
+
+        let conflictingBackgrounds = document.querySelectorAll('.conflicting-background');
+        conflictingBackgrounds.forEach(background => {
+            console.log(background);
+            background.style.opacity = 1;
+        });
         store.setSelection(data.find(province => province.province === target.getAttribute('title')));
         schoolWrapper.animate(fadeRightInKF, fadeTiming);
     };
@@ -195,7 +201,7 @@ function toggleMenu() {
     }
 }
 
-function closeMenu() {
+function closeMenu(isAutoClose = false) {
     isMenuOpen = false;
 
     menuToggleUpper.style.top = "";
@@ -206,9 +212,10 @@ function closeMenu() {
 
     let conflictingBackgrounds = document.querySelectorAll('.conflicting-background');
 
-    conflictingBackgrounds.forEach(background => {
-        background.style.opacity = 1;
-    });
+    if (!isAutoClose)
+        conflictingBackgrounds.forEach(background => {
+            background.style.opacity = 1;
+        });
 
     provinceList.style.height = "0%";
     provinceListItems.forEach(item => {
