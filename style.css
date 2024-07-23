@@ -11,7 +11,9 @@
 body {
   margin: 0;
   padding: 0;
+  height: 100vh;
   height: 100dvh;
+  width: 100vw;
   width: 100dvw;
   display: flex;
   overflow: hidden;
@@ -347,4 +349,22 @@ h2 {
 
 ::-webkit-scrollbar {
   display: none;
+}
+
+#loading-overlay {
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  display: flex;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  height: 100dvh;
+  width: 100vw;
+  width: 100dvw;
+  align-items: center;
+  justify-content: center;
+  transition: all 500ms;
+  z-index: 9999;
+  opacity: 1;
 }

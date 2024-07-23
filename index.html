@@ -29,6 +29,7 @@
   </script>
 
   <body>
+    <div id="loading-overlay"><span>请稍后...</span></div>
     <div id="main-area">
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -305,7 +306,7 @@
             <div v-else class="conflicting-background">
               <span>语文：万小洁</span><br />
               <span>数学：李金凯</span><br />
-              <span>英语：符艳华/王莉莉</span><br />
+              <span>英语：符燕华/王莉莉</span><br />
               <span>物理：陈显峰</span><br />
               <span>化学：孙美华</span><br />
               <span>生物：秦玉莲/何群山/钱敏艳</span><br />
@@ -319,9 +320,9 @@
                 class="province-list-item"
               >
                 <h2 class="province-list-item-text">{{province.province}}</h2>
-                <div
-                  v-for="i in Array.from({length: province.num}, (_,i)=>i)"
-                >·</div>
+                <div v-for="i in Array.from({length: province.num}, (_,i)=>i)">
+                  ·
+                </div>
               </div>
             </div>
           </div>
