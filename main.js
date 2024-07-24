@@ -95,11 +95,12 @@ provinceListItems.forEach((item) => {
       (land) => land.getAttribute("title") === provinceName
     );
 
-    console.log(target);
-
-    provinceClick({
-      target,
-    });
+    provinceClick(
+      {
+        target,
+      },
+      true
+    );
   });
 });
 
@@ -117,7 +118,7 @@ lands.forEach((land) => {
 backButton.addEventListener("click", back);
 menuToggle.addEventListener("click", toggleMenu);
 
-function provinceClick(e) {
+function provinceClick(e, isAutoClose = false) {
   store.isInitial = false;
 
   closeMenu(true);
@@ -158,7 +159,10 @@ function provinceClick(e) {
   map.style.transform = `rotateX(45deg) rotateZ(12deg) scale(${ratio})`;
   infoAreaTitleText.innerText = target.getAttribute("title");
 
-  var animation = schoolWrapper.animate(fadeLeftOutKF, fadeTiming);
+  var animation = schoolWrapper.animate(
+    isAutoClose ? null : fadeLeftOutKF,
+    fadeTiming
+  );
   animation.onfinish = () => {
     let conflictingBackgrounds = document.querySelectorAll(
       ".conflicting-background"
