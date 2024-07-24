@@ -22,13 +22,13 @@ const updateHue = () => {
 
 requestAnimationFrame(updateHue);
 
-document.addEventListener("DOMContentLoaded", () => {
+window.onload = () => {
   const loadingOverlay = document.getElementById("loading-overlay");
   loadingOverlay.style.opacity = 0;
   setTimeout(() => {
     loadingOverlay.remove();
   }, 500);
-});
+};
 
 var isMenuOpen = false;
 
