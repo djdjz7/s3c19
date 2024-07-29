@@ -215,7 +215,7 @@ function toggleMenu() {
     provinceList.style.height = "100%";
     provinceListItems.forEach((item) => {
       item.style.opacity = 1;
-      item.style.transform = "translateY(-40px)";
+      item.style.transform = "translateY(40px)";
     });
   } else {
     closeMenu();
